@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for q in queryset  %}
+        {{q.id}}
+        {{q.amount}}
+        {{q.user}}
+        {{q.category}}
+    {% endfor %}
+    <table style="width:100%">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">code</th>
+            <th scope="col">amount</th>
+            <th scope="col">date</th>
+            <th scope="col">category</th>
+            <th scope="col">user</th>
+        </tr>
+        
+        {% for d in data %}
+        
+            <tr>
+            <td>{{ d.id}}</td>   
+            <td>{{d.currency.code}}</td>
+            <td>{{ d.amount}}</td>
+            <td>{{ d.date}}</td>
+            <td>{{ d.category}}</td>
+            <td>{{ d.user}}</td>
+            <!-- If objet_tdst is empty  -->
+        {% empty %}
+            <td>No objects yet.</td> 
+       
+     {% endfor %}
+        </tr>
+    </table>
+
+
+<h1>Aggregation</h1>
+{% for t in total  %}
+    <p>Category Name : {{t.category__name}}</p>
+    <p>Currency: {{t.currency__code}}</p>
+    <p>Total:{{t.total}}</p>
+    <p>Count:{{t.count}}</p>
+    <p>Avg:{{t.avg}}</p>
+{% endfor %}
+<br><hr>
+<h1>Aggregation by User</h1>
+{% for tu in total_by_user  %}
+    <p>User : {{tu.user__username}}</p>
+    <p>Category: {{tu.category__name}}</p>
+    <p>Currency:{{tu.currency__code}}</p>
+    <p>Total:{{tu.total}}</p>
+    <p>Count:{{tu.count}}</p>
+    <p>Max:{{tu.max}}</p>
+    <p>Min:{{tu.min}}</p>
+{% endfor %}
+</body>
+</html>
