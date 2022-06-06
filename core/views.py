@@ -1,5 +1,4 @@
 from rest_framework import filters
-from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -25,14 +24,14 @@ class CategoryModelViewSet(ModelViewSet):
 
 class TransactionModelViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    filter_backends = [filters.SearchFilter,filters.OrderingFilter]
-    search_fields = ('category__name','user__username','currency__code',)
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ('category__name', 'user__username', 'currency__code',)
     ordering_fields = ('amount',)
 
     def get_queryset(self):
-        return Transaction.objects.select_related("currency","category","user").filter(user=self.request.user,)
+        return Transaction.objects.select_related("currency", "category", "user").filter(user=self.request.user, )
 
     def get_serializer_class(self):
-        if self.action in ("list","retrieve",):
+        if self.action in ("list", "retrieve",):
             return ReadTransactionSerializer
         return WriteTransactionSerializer
