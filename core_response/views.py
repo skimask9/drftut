@@ -29,14 +29,9 @@ def index(request):
         min=Min("amount")
     )
     queryset = Transaction.objects.filter(Q(amount__range=(125, 132)) | Q(amount__range=(250, 500)))
-    print(queryset)
-    # print(total_by_user)
     data = []
-    # datacur = []
     for s in r:
         data.append(s)
-        # datacur.append(s['currency']['code'])
-    # print(datacur)
     return render(request, "core_response/home.html",
                   {
                       "data": data,

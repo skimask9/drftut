@@ -6,12 +6,21 @@
     <title>Document</title>
 </head>
 <body>
+<input type = "text" list = "total_by_user" placeholder = "Total">
+<datalist id = "total_by_user">
+    {%for total    in total_by_user    %}
+        <option value="{{total.currency__code}}"></option>
+    {%endfor%}
+</datalist>
+<br>
+<hr>
     {% for q in queryset  %}
         {{q.id}}
         {{q.amount}}
         {{q.user}}
         {{q.category}}
     {% endfor %}
+<hr>
     <table style="width:100%">
         <tr>
             <th scope="col">id</th>
@@ -29,7 +38,7 @@
             <td>{{d.currency.code}}</td>
             <td>{{ d.amount}}</td>
             <td>{{ d.date}}</td>
-            <td>{{ d.category}}</td>
+            <td>{{ d.category.name}}</td>
             <td>{{ d.user}}</td>
             <!-- If objet_tdst is empty  -->
         {% empty %}
